@@ -15,7 +15,7 @@ namespace ConsoleApp
 
         static void Main(string[] args)
         {
-            DeviceService.deviceClient.SetMethodHandlerAsync("SetTelemetryInterval", DeviceService.SetTelemetryInterval, null).Wait();
+            DeviceService.deviceClient.SetMethodHandlerAsync("SetTelementryInterval", DeviceService.SetTelemetryInterval, null).Wait();
             DeviceService.sendMessageAsync().GetAwaiter();
 
             Console.ReadKey();

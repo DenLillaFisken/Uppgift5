@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,21 +17,18 @@ namespace ConsoleApp.Services
         //Vår metod
         public static Task<MethodResponse> SetTelemetryInterval(MethodRequest request, object userContext)
         {
-            var test = request.Data;
+            
             var payload = Encoding.UTF8.GetString(request.Data).Replace("\"", "");
 
-            
-            //kan man göra till enhetstest??
+           
             if (Int32.TryParse(payload, out telemetricInterval))
             {
-                Console.WriteLine($"request {request.Data}");
-                Console.WriteLine($"Telematric number {telemetricInterval}");
+                Console.WriteLine($"Interval set to: {telemetricInterval}");
                 string json = "{\"result\": \"Executed direct method: " + request.Name + "\"}";
                 return Task.FromResult(new MethodResponse(Encoding.UTF8.GetBytes(json), 200));
             }
             else
             {
-                Console.WriteLine($"request {request.Data}");
                 string json = "{\"result\": \"Method not implemented\"}";
                 return Task.FromResult(new MethodResponse(Encoding.UTF8.GetBytes(json), 501));
             }

@@ -11,19 +11,17 @@ namespace ConsoleApp.Test
     {
         private static DeviceClient deviceClient = DeviceClient.CreateFromConnectionString("HostName=EC-WEB20-AJ.azure-devices.net;DeviceId=consoleapp;SharedAccessKey=FQFt0u9cyO0SEDTU7+zDQHAogBVuOPeag2O49QiDaPw=", TransportType.Mqtt);
 
-        [Theory]
-        [InlineData("SetTelementryInterval", "10", 200)]
-        [InlineData("SetInterval", "10", 501)]
+        [Fact]
+        //[InlineData("SetTelementryInterval", 200)]
+        //[InlineData("SetInterval", 501)]
 
-        public void SetTelementryInterval_ShouldChangeTheInterval(string methodName, string payload, int statusCode)
+        public void SetTelementryInterval_ShouldReturnStatusCode()
         {
-            var response = DeviceService.SetTelemetryInterval(new MethodRequest(methodName), null).GetAwaiter().GetResult();
+            var response = DeviceService.SetTelemetryInterval(new MethodRequest("SetTelementryInterval"), null).GetAwaiter().GetResult();
 
-            //var responseData = Encoding.UTF8.GetString(response.Result);
+           var responseint = Convert.ToInt32(response.Status);
 
-            
-            Assert.Equal(statusCode, response.Status);
-            //Assert.Equal(payload, responseData);
+            Assert.Equal(200, responseint);
 
         }
     }
