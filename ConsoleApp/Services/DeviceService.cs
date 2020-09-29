@@ -11,16 +11,14 @@ namespace ConsoleApp.Services
     public class DeviceService
     {
         public static DeviceClient deviceClient = DeviceClient.CreateFromConnectionString("HostName=EC-WEB20-AJ.azure-devices.net;DeviceId=consoleapp;SharedAccessKey=FQFt0u9cyO0SEDTU7+zDQHAogBVuOPeag2O49QiDaPw=", TransportType.Mqtt);
-        public static int telemetricInterval = 5;
+        public static int telemetricInterval = 10;
         public static Random rnd = new Random();
 
-        //Vår metod
         public static Task<MethodResponse> SetTelemetryInterval(MethodRequest request, object userContext)
         {
             
             var payload = Encoding.UTF8.GetString(request.Data).Replace("\"", "");
-
-           
+  
             if (Int32.TryParse(payload, out telemetricInterval))
             {
                 Console.WriteLine($"Interval set to: {telemetricInterval}");
@@ -31,11 +29,9 @@ namespace ConsoleApp.Services
             {
                 string json = "{\"result\": \"Method not implemented\"}";
                 return Task.FromResult(new MethodResponse(Encoding.UTF8.GetBytes(json), 501));
-                var test;
             }
         }
 
-        //skickar meddelanden
         public static async Task sendMessageAsync()
         {
             while (true)
