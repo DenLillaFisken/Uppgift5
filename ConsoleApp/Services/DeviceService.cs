@@ -21,7 +21,7 @@ namespace ConsoleApp.Services
   
             if (Int32.TryParse(payload, out telemetricInterval))
             {
-                Console.WriteLine($"Interval set to: {telemetricInterval}");
+                Console.WriteLine($"Direct Method message recieved. Interval set to: {telemetricInterval}");
                 string json = "{\"result\": \"Executed direct method: " + request.Name + "\"}";
                 return Task.FromResult(new MethodResponse(Encoding.UTF8.GetBytes(json), 200));
             }
