@@ -31,6 +31,7 @@ namespace ConsoleApp.Services
             {
                 string json = "{\"result\": \"Method not implemented\"}";
                 return Task.FromResult(new MethodResponse(Encoding.UTF8.GetBytes(json), 501));
+                var test;
             }
         }
 
